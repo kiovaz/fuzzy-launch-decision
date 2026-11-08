@@ -164,7 +164,7 @@ Every row includes its source and link. The `observacoes` (notes) column in `cas
 - ROSS, T. J. *Fuzzy Logic with Engineering Applications*. 4th ed. Chichester: Wiley, 2016.
 - [scikit-fuzzy documentation](https://scikit-fuzzy.readthedocs.io)
 - [NASA – Falcon 9 Crew Dragon Launch Weather Criteria](https://www.nasa.gov/wp-content/uploads/2021/07/falcon9_crewdragon_launch_weather_criteria_fact_sheet.pdf)
-- [NASA – Artemis I Weather Criteria](https://www.nasa.gov/content/artemis-i-weather-criteria)
+- [NASA – Artemis I Weather Criteria](https://www.nasa.gov/directorates/esdmd/common-exploration-systems-development-division/orion-program/artemis-i-weather-criteria/)
 - [NASA – Space Shuttle Weather Launch Commit Criteria](https://www3.nasa.gov/centers/kennedy/pdf/633165main_weather-rules-march2011.pdf)
 - [NASA TM-86577 – Atmospheric Environment for Space Shuttle (STS-51L) Launch](https://ntrs.nasa.gov/citations/19870009517)
 - [Report of the Presidential Commission on the Space Shuttle Challenger Accident, ch. III](https://www.nasa.gov/history/rogersrep/v1ch3.htm)
