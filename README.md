@@ -104,7 +104,7 @@ A full run took between 35 seconds and a little over a minute on the development
 
 ## Results
 
-All numbers below come from a clean run of the notebook (`nbconvert --execute`, no errors). In every test, exactly the rules predicted in the project plan fired.
+All numbers below come from a clean run of the notebook (`nbconvert --execute`, no errors). In every test, exactly the rules expected beforehand fired.
 
 ### Test cases
 
