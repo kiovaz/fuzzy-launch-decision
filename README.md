@@ -56,7 +56,8 @@ Reading the output: below 35% → Abort; 35–65% → Hold; above 65% → Launch
 
 ```
 fuzzy-launch-decision/
-├── lancamento_fuzzy.ipynb        # notebook: implementation and full explanation
+├── notebook/
+│   └── lancamento_fuzzy.ipynb    # notebook: implementation and full explanation
 ├── requirements.txt              # pinned dependencies (includes scipy and networkx, which scikit-fuzzy needs)
 ├── README.md
 └── data/
@@ -76,7 +77,7 @@ python -m venv .venv            # use python3 if python is not found
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
 
 pip install -r requirements.txt
-jupyter notebook lancamento_fuzzy.ipynb
+jupyter notebook notebook/lancamento_fuzzy.ipynb
 ```
 
 In Jupyter, use **Kernel > Restart Kernel and Run All Cells…**. The notebook runs from top to bottom with no manual steps.
@@ -84,8 +85,10 @@ In Jupyter, use **Kernel > Restart Kernel and Run All Cells…**. The notebook r
 To execute it from the command line instead:
 
 ```bash
-jupyter nbconvert --to notebook --execute --inplace lancamento_fuzzy.ipynb
+jupyter nbconvert --to notebook --execute --inplace notebook/lancamento_fuzzy.ipynb
 ```
+
+The notebook reads the CSVs from `../data`, relative to its own folder; Jupyter and `nbconvert` both run it from `notebook/`, so the commands above work from the repository root.
 
 A full run took between 35 seconds and a little over a minute on the development machine. The slowest cell is Validation A, which evaluates 68,921 input combinations using scikit-fuzzy's vectorised mode and prints its own run time.
 
