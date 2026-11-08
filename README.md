@@ -16,13 +16,13 @@ Fuzzy logic captures that gradation with linguistic terms (weak, moderate, stron
 
 ```mermaid
 flowchart LR
-    A[Sustained wind<br/>km/h] --> F[Fuzzification]
-    B[Thunderstorm<br/>distance<br/>km] --> F
-    C[Temperature<br/>°C] --> F
-    F --> R[27 IF–THEN<br/>rules]
-    R --> G[Aggregation<br/>max]
-    G --> D[Defuzzification<br/>centroid]
-    D --> S[Readiness 0–100%<br/>Abort · Hold · Launch]
+    A["Sustained wind<br/>km/h"] --> F["Fuzzification"]
+    B["Thunderstorm<br/>distance<br/>km"] --> F
+    C["Temperature<br/>°C"] --> F
+    F --> R["27 IF–THEN<br/>rules"]
+    R --> G["Aggregation<br/>max"]
+    G --> D["Defuzzification<br/>centroid"]
+    D --> S["Readiness 0–100%<br/>Abort · Hold · Launch"]
 ```
 
 ### Variables
