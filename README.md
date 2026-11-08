@@ -10,7 +10,7 @@ Individual project for the course *Inteligência Artificial e Bioinspirada* (Art
 
 Before every launch, a weather team assesses whether conditions allow the countdown to continue (*go*) or not (*no-go*). The official criteria are hard limits, such as "do not launch if the sustained wind exceeds 30 mph". Close to those limits, however, risk grows gradually: a 45 km/h wind is not as safe as a 10 km/h one, even though both are below the limit.
 
-Fuzzy logic captures that gradation with linguistic terms (weak, moderate, strong), the way an expert reasons. The model's thresholds come from weather criteria published by NASA, and the validation uses real launches, including Challenger in 1986.
+Fuzzy logic captures that gradation with linguistic terms (weak, moderate, strong), the way an expert reasons. The model's thresholds come mostly from weather criteria published by NASA, plus the first Atlas V's launch criteria reported by Spaceflight Now. The validation uses real cases, including Challenger in 1986.
 
 ## How it works
 
@@ -34,7 +34,7 @@ flowchart LR
 | Temperature | Input | −10 to 45 °C | Cold · Mild · Hot |
 | Launch readiness | Output | 0–100% | Abort · Hold · Launch |
 
-The transitions between terms sit around the official limits: about 48 km/h for wind (Falcon 9), 18.5 km for lightning, and 4.4 to 35 °C for temperature (Artemis I). Values outside a domain are clipped to its nearest edge.
+The transitions between terms are placed near the official limits: the Moderate/Strong wind crossover is at 45 km/h (Falcon 9 limit: 48.3 km/h), the Near/Medium storm crossover at about 17.8 km (lightning rule: 18.5 km), the Cold/Mild crossover at 6 °C (Artemis I minimum: 4.4 °C), and Hot starts at 30 °C (Artemis I maximum: 35 °C). Values outside a domain are clipped to its nearest edge.
 
 ### Rule base
 
@@ -62,7 +62,7 @@ fuzzy-launch-decision/
 ├── README.md
 └── data/
     ├── criterios_referencia.csv  # official limits behind the model
-    └── casos_reais.csv           # real launches used for validation
+    └── casos_reais.csv           # real cases used for validation
 ```
 
 ## Running it
@@ -74,7 +74,7 @@ git clone https://github.com/kiovaz/fuzzy-launch-decision.git
 cd fuzzy-launch-decision
 
 python -m venv .venv            # use python3 if python is not found
-source .venv/bin/activate        # Windows: .venv\Scripts\activate
+source .venv/bin/activate        # Windows cmd/PowerShell: .venv\Scripts\activate; Git Bash: source .venv/Scripts/activate
 
 pip install -r requirements.txt
 jupyter notebook notebook/lancamento_fuzzy.ipynb
@@ -99,7 +99,7 @@ A full run took between 35 seconds and a little over a minute on the development
 - **6 test cases** (typical, extreme and transition), each with the rules it fires and a plot of the aggregated output and its centroid
 - **3 output surfaces**, one per pair of inputs, plus curves showing how each input alone moves the score
 - **Validation A:** comparison against the official criteria applied as yes/no rules over a grid of input combinations, with a confusion matrix
-- **Validation B:** three real launches, Challenger (1986), NASA's SpaceX Crew-6 on a Falcon 9 (2023) and an Atlas 2AS (2004), compared with the official forecasts
+- **Validation B:** three real cases, Challenger's launch day (1986) and the official weather forecasts for two launch attempts, NASA's SpaceX Crew-6 on a Falcon 9 (2023) and an Atlas 2AS (2004)
 - Conclusions and limitations
 
 ## Results
@@ -117,9 +117,11 @@ All numbers below come from a clean run of the notebook (`nbconvert --execute`, 
 | 5 | 10 | 50 | 6 | About 50%, read as Hold | 50.00% · Hold | R1 (0.33), R3 (0.33) |
 | 6 | 35 | 25 | 24 | Abort | 15.56% · Abort | R13 (1.00) |
 
-Test 4 lands 1.65 points below the 35% Hold threshold: with both rules at the same strength, the clipped Abort set is wider than the Hold set and pulls the centroid down. Test 5 reads as Hold even though no Hold rule fires, because the centroid sits halfway between Abort and Launch.
+Rule numbers follow the 27-rule table in section 6 of the notebook (for example, R10 = Moderate wind, Far storm, Mild temperature → Hold).
 
-### Real launches
+Test 4 lands 1.65 points below the 35% Hold threshold, for two reasons: the clipped Abort set is centred at about 18% and the clipped Hold set at 50%, so even with equal weights their midpoint (about 34%) is already below 35%, and the clipped Abort set also has slightly more area. Test 5 reads as Hold even though no Hold rule fires, because the centroid sits halfway between Abort and Launch.
+
+### Real cases
 
 | Case | Readiness | Reading | Official reference (100% − P(violation)) |
 | --- | --- | --- | --- |
@@ -131,7 +133,7 @@ Test 4 lands 1.65 points below the 35% Hold threshold: with both rules at the sa
 
 Over a grid of 41 × 41 × 41 = 68,921 input combinations:
 
-- **93.40% agreement**, or 82.04% if Hold is not counted as agreement.
+- **93.40% agreement**, or 82.04% if Hold is not counted as agreement. By class: 100% where the official criteria forbid the launch (counting Hold as agreement, as in the global figure) and 68.20% where they allow it (84.10% balanced). The global figure depends on how much of the grid is forbidden (79%), which comes from the width of the domains.
 - **Zero cases** where the fuzzy system says Launch and the official criteria forbid it. All 4,547 disagreements (with Hold counted as agreement) go the safe way: the official criteria allow the launch and the fuzzy system aborts.
 
 | Official criteria ↓ · Fuzzy → | Abort | Hold | Launch |
@@ -163,6 +165,7 @@ Every row includes its source and link. The `observacoes` (notes) column in `cas
 - TAKAGI, T.; SUGENO, M. Fuzzy identification of systems and its applications to modeling and control. *IEEE Transactions on Systems, Man, and Cybernetics*, v. SMC-15, n. 1, p. 116–132, 1985. [DOI](https://doi.org/10.1109/TSMC.1985.6313399)
 - ROSS, T. J. *Fuzzy Logic with Engineering Applications*. 4th ed. Chichester: Wiley, 2016.
 - [scikit-fuzzy documentation](https://scikit-fuzzy.readthedocs.io)
+- [Spaceflight Now – Launch commit criteria for first Atlas 5](https://spaceflightnow.com/atlas/av001/020817weather/)
 - [NASA – Falcon 9 Crew Dragon Launch Weather Criteria](https://www.nasa.gov/wp-content/uploads/2021/07/falcon9_crewdragon_launch_weather_criteria_fact_sheet.pdf)
 - [NASA – Artemis I Weather Criteria](https://www.nasa.gov/directorates/esdmd/common-exploration-systems-development-division/orion-program/artemis-i-weather-criteria/)
 - [NASA – Space Shuttle Weather Launch Commit Criteria](https://www3.nasa.gov/centers/kennedy/pdf/633165main_weather-rules-march2011.pdf)
