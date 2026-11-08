@@ -99,7 +99,7 @@ A full run took between 35 seconds and a little over a minute on the development
 - **6 test cases** (typical, extreme and transition), each with the rules it fires and a plot of the aggregated output and its centroid
 - **3 output surfaces**, one per pair of inputs, plus curves showing how each input alone moves the score
 - **Validation A:** comparison against the official criteria applied as yes/no rules over a grid of input combinations, with a confusion matrix
-- **Validation B:** three real launches, Challenger (1986), a Falcon 9 (2025) and a Delta IV (2002), compared with the official forecasts
+- **Validation B:** three real launches, Challenger (1986), NASA's SpaceX Crew-6 on a Falcon 9 (2023) and an Atlas 2AS (2004), compared with the official forecasts
 - Conclusions and limitations
 
 ## Results
@@ -124,8 +124,8 @@ Test 4 lands 1.65 points below the 35% Hold threshold: with both rules at the sa
 | Case | Readiness | Reading | Official reference (100% − P(violation)) |
 | --- | --- | --- | --- |
 | Challenger (1986) | 17.47% | Abort | No probability published; launched and broke apart at 73 s |
-| Falcon 9 Starlink 6-95, 24 h delay option (2025) | 66.80% | Launch, at the border | 95% (the model's maximum is 84.44%, and the 25 km/h wind is already partly Moderate) |
-| Delta IV (2002) | 17.53% | Abort | 20% |
+| NASA SpaceX Crew-6, Falcon 9 (2023) | 84.44% | Launch | 95% (84.44% is the model's maximum, because of the centroid) |
+| Atlas 2AS AC-167 (2004) | 17.56% | Abort | 40% (the storms, forecast "within 10 nautical miles", were placed at the midpoint, 9.3 km; at 18.5 km the result would be 38.39%, Hold) |
 
 ### Validation A: official criteria vs. fuzzy system
 
@@ -168,8 +168,9 @@ Every row includes its source and link. The `observacoes` (notes) column in `cas
 - [NASA – Space Shuttle Weather Launch Commit Criteria](https://www3.nasa.gov/centers/kennedy/pdf/633165main_weather-rules-march2011.pdf)
 - [NASA TM-86577 – Atmospheric Environment for Space Shuttle (STS-51L) Launch](https://ntrs.nasa.gov/citations/19870009517)
 - [Report of the Presidential Commission on the Space Shuttle Challenger Accident, ch. III](https://www.nasa.gov/history/rogersrep/v1ch3.htm)
-- [45th Weather Squadron – Falcon 9 Starlink 6-95 launch forecast](https://45thweathersquadron.nebula.spaceforce.mil/assets/LaunchForecasts/Falcon%209%20Starlink%206-95%20L-1%20Forecast%20-%202%20Dec%20Launch.pdf)
-- [Spaceflight Now – Delta IV launch weather forecast](https://spaceflightnow.com/delta/delta4/021114weather)
+- [NASA – Weather Looking Great for NASA's SpaceX Crew-6 Launch](<https://www.nasa.gov/blogs/commercialcrew/2023/02/27/weather-looking-great-for-nasas-spacex-crew-6-launch/>)
+- [FOX 35 Orlando – Crew-6 launch forecast](<https://www.fox35orlando.com/news/crew-6-launch-forecast-will-florida-skies-stay-clear-for-liftoff>)
+- [Spaceflight Now – Atlas 2AS AC-167 launch weather forecast](<https://spaceflightnow.com/atlas/ac167/040829wx.html>)
 
 ## Author
 
